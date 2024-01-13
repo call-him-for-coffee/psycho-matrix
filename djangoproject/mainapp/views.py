@@ -1,11 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
-# from rest_framework.authtoken.views import ObtainAuthToken
+
 
 import mainapp.serializers as my_seriazliers
 import mainapp.models as my_models
@@ -26,7 +26,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 class UserDataViewSet(viewsets.ModelViewSet):
     queryset = my_models.UserData.objects.all()
     serializer_class = my_seriazliers.UserDataSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    lookup_field = 'user__username'
 
 
 class UserLoginView(APIView):
