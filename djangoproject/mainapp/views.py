@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets, generics
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
@@ -27,6 +28,36 @@ class UserDataViewSet(viewsets.ModelViewSet):
     queryset = my_models.UserData.objects.all()
     serializer_class = my_seriazliers.UserDataSerializer
     lookup_field = 'user__username'
+
+    @action(detail=False, methods=['GET'])
+    def compare_users(self, request):
+        print(request.query_params)
+        username1 = self.request.query_params.get('username1')
+        username2 = self.request.query_params.get('username2')
+        print(username1, username2)
+
+        if not username1:
+            return Response({'error': '"username1" is required.'}, status=400)
+        if not username2:
+            return Response({'error': '"username2" is required.'}, status=400)
+
+
+        try:
+            user_data1 = my_models.UserData.objects.get(user__username=username1)
+        except my_models.UserData.DoesNotExist:
+            return Response({'error': f'UserData not found for username1 ({username1}).'}, status=404)
+        
+        try:
+            user_data2 = my_models.UserData.objects.get(user__username=username2)
+        except my_models.UserData.DoesNotExist:
+            return Response({'error': f'UserData not found for username2 ({username2}).'}, status=404)
+
+        # TODO: Custom comparison logic
+
+        serializer1 = self.get_serializer(user_data1)
+        serializer2 = self.get_serializer(user_data2)
+
+        return Response({'user_data1': serializer1.data, 'user_data2': serializer2.data})
 
 
 class UserLoginView(APIView):
