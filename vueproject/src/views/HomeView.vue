@@ -4,29 +4,62 @@
     <div class="row">
 
         <div class="col-md-offset-3 col-md-6">
-            <form class="form-horizontal">
-
+            <form @submit.prevent="signIn" class="form-horizontal">
                 <span class="heading">АВТОРИЗАЦИЯ</span>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="inputLogin" name="username" placeholder="Login">
+                    <input type="text" v-model="username" class="form-control" id="inputLogin" name="username" placeholder="Login" required>
                 </div>
                 <div class="form-group help">
-                    <input type="password" class="form-control" id="inputPassword"  name="password" placeholder="Password">
+                    <input type="password" v-model="password" class="form-control" id="inputPassword"  name="password" placeholder="Password" required>
                 </div>
                 <div><nav>
-                  <p><router-link to="/about"><button type="submit" class="btn">ВХОД</button></router-link></p>
-                  <router-link to="/r"><button type="submit" class="btn">РЕГИСТРАЦИЯ</button></router-link> 
+                    <router-link to="/about"><button type="submit" class="btn">ВХОД</button></router-link>
+                    <router-link to="/r"><button type="submit" class="btn">РЕГИСТРАЦИЯ</button></router-link> 
+                    <button type="submit">sign up</button>
                 </nav></div>
             </form>
         </div>
 
-    </div><!-- /.row -->
-</div><!-- /.container -->
+    </div>
+</div>
 </template>
 
-<script>
 
+
+<script>
+// import axios from 'axios';
+import { HTTP } from '../api/common';
+
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    signIn() {
+        console.log("on submit");
+        console.log(this.username);
+        console.log(this.password);
+
+      HTTP.post('/users/', {
+        username: this.username,
+        password: this.password,
+      })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        var responseText = error.request.responseText;
+        console.error('Sign-in failed:', responseText);
+        window.alert('Sign-in failed:\n\n' + responseText);
+      });
+    },
+  },
+};
 </script>
+
 
 <style>
 .title{
