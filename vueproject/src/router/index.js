@@ -13,14 +13,14 @@ const routes = [
     component: () => import('../views/AboutView.vue')
   },
   {
-    path: '/r',
-    name: 'reg',
-    component: () => import('../views/RegistraciaView.vue')
+    path: '/registration',
+    name: 'registration',
+    component: () => import('../views/RegistrationView.vue')
   },
   {
-    path: '/s',
-    name: 'sravn',
-    component: () => import('../views/SravnView.vue')
+    path: '/compare',
+    name: 'compare',
+    component: () => import('../views/CompareView.vue')
   }
 ]
 
