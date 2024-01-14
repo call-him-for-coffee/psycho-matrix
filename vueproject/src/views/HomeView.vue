@@ -4,8 +4,8 @@
     <div class="row">
 
         <div class="col-md-offset-3 col-md-6">
-            <form @submit.prevent="signIn" class="form-horizontal">
-                <span class="heading">АВТОРИЗАЦИЯ</span>
+            <form @submit.prevent="login" class="form-horizontal">
+                <span class="heading">ВОЙТИ</span>
                 <div class="form-group">
                     <input type="text" v-model="username" class="form-control" id="inputLogin" name="username" placeholder="Login" required>
                 </div>
@@ -13,9 +13,8 @@
                     <input type="password" v-model="password" class="form-control" id="inputPassword"  name="password" placeholder="Password" required>
                 </div>
                 <div><nav>
-                    <router-link to="/about"><button type="submit" class="btn">ВХОД</button></router-link>
-                    <router-link to="/r"><button type="submit" class="btn">РЕГИСТРАЦИЯ</button></router-link> 
-                    <button type="submit">sign up</button>
+                    <button type="submit" class="btn">Войти</button>
+                    <router-link to="/registration"><button type="submit" class="btn">Регистрация</button></router-link> 
                 </nav></div>
             </form>
         </div>
@@ -27,7 +26,6 @@
 
 
 <script>
-// import axios from 'axios';
 import { HTTP } from '../api/common';
 
 export default {
@@ -38,12 +36,9 @@ export default {
     };
   },
   methods: {
-    signIn() {
-        console.log("on submit");
-        console.log(this.username);
-        console.log(this.password);
-
-      HTTP.post('/users/', {
+    login() {
+      console.log("login clicked")
+      HTTP.post('/login/', {
         username: this.username,
         password: this.password,
       })
@@ -52,8 +47,8 @@ export default {
       })
       .catch(error => {
         var responseText = error.request.responseText;
-        console.error('Sign-in failed:', responseText);
-        window.alert('Sign-in failed:\n\n' + responseText);
+        console.error('Login failed:', responseText);
+        window.alert('Login failed:\n\n' + responseText);
       });
     },
   },
