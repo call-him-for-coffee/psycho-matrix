@@ -44,6 +44,7 @@ export default {
       })
       .then(response => {
         console.log(response.data);
+        this.$router.push('/about');
       })
       .catch(error => {
         var responseText = error.request.responseText;

@@ -4,7 +4,8 @@
       <span class="name">Имя</span>
       <nav><router-link to="/"><button class="button">Выход</button></router-link></nav>
     </div>
-    <div>
+
+    <div class="InputData">
       <div class="title2">Ведите ваши данные:</div>
       <div>
         <label for="birthday" class="bd">Дата рождения:</label>
@@ -19,6 +20,34 @@
         <label for="female">Женский</label>
       </div>
     </div>
+
+    <div class="Matrix" align="center">
+      <table>
+        <tr>
+          <td>
+            <div class="f">
+            <div class="titlesquare" align="center"><b>Квадрат пифагора</b></div>
+            <table class="square">
+              <tr>
+                <td><div>11</div><div>Характер</div></td><td><div>444</div><div>Здоровье</div></td><td><div>7</div><div>Удача</div></td>
+              </tr>
+              <tr>
+                <td><div>2</div><div>Энергенита</div></td><td><div>5</div><div>Логка</div></td><td><div>88</div><div>Призвание</div></td>
+              </tr>
+              <tr>
+                <td><div>333</div><div>Познание</div></td><td><div>66</div><div>Трудолюбие</div></td><td><div>9</div><div>Память и ум</div></td>
+              </tr>
+            </table>
+          </div>
+          </td> 
+          <td>
+            <div class="info">Дата рождения:</div>
+            <div class="info">Гендер:</div>
+          </td>         
+        </tr>
+      </table>
+    </div>
+
   </div>
 </template>
 <script>
@@ -31,7 +60,30 @@ export default {
   }
 };
 </script>
+
 <style>
+td{
+  text-align: center;
+}
+.f{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.info{
+  font-size: 25px;
+}
+.titlesquare{
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.square{
+  font-size: 25px;
+}
 .bd{
   font-size: 25px;
 }
