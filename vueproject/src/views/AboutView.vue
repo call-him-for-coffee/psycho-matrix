@@ -3,26 +3,32 @@
   <div>
     <div class="container">
       <span class="name">Имя</span>
-      <nav><router-link to="/"><button class="button">Выход</button></router-link></nav>
-  </div>
-
-    <div class="InputData">
-      <div class="title2">Введите ваши данные:</div>
-      <div>
-        <label for="birthday" class="bd">Дата рождения:</label>
-        <input type="date" class="form-control" id="birthday" v-model="birthday">
-      </div>
-      <div class="bd">
-        <label for="gender">Выберите гендер:</label>
-        <input type="radio" id="male" value="male" v-model="selectedGender">
-        <label for="male">Мужской</label>
-    
-        <input type="radio" id="female" value="female" v-model="selectedGender">
-        <label for="female">Женский</label>
-      </div>
+      <nav><router-link to="/"><button class="button" @click="onExitClick">Выход</button></router-link></nav>
     </div>
 
-    <div class="Matrix">
+    <form @submit.prevent="saveUserData" class="form-horizontal">
+      <div class="InputData">
+        <div class="title2">Введите ваши данные:</div>
+        <div>
+          <label for="birthday" class="bd">Дата рождения:</label>
+          <input type="date" class="form-control" id="birthday" v-model="selectedDateOfBirth">
+        </div>
+        <div class="bd">
+          <label for="gender">Выберите гендер:</label>
+          <input type="radio" id="male" value="male" v-model="selectedGender">
+          <label for="male">Мужской</label>
+      
+          <input type="radio" id="female" value="female" v-model="selectedGender">
+          <label for="female">Женский</label>
+          <div><nav>
+            <button type="submit" class="btn">Сохранить</button>
+          </nav></div>
+        </div>
+      </div>
+    </form>
+
+
+    <div v-if="user_data_json" class="Matrix">
       <div align="center">
       <table>
         <tr>
@@ -31,20 +37,53 @@
             <div class="titlesquare" align="center"><b>Квадрат пифагора</b></div>
             <table class="square">
               <tr>
-                <td><div>11</div><div>Характер</div></td><td><div>444</div><div>Здоровье</div></td><td><div>7</div><div>Удача</div></td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][0] }}</div>
+                  <div>Характер</div>
+                </td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][1] }}</div>
+                  <div>Здоровье</div>
+                </td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][2] }}</div>
+                  <div>Удача</div>
+                </td>
               </tr>
               <tr>
-                <td><div>2</div><div>Энергетика</div></td><td><div>5</div><div>Логика</div></td><td><div>88</div><div>Призвание</div></td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][3] }}</div>
+                  <div>Энергетика</div>
+                </td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][4] }}</div>
+                  <div>Логика</div>
+                </td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][5] }}</div>
+                  <div>Призвание</div>
+                </td>
               </tr>
               <tr>
-                <td><div>333</div><div>Познание</div></td><td><div>66</div><div>Трудолюбие</div></td><td><div>9</div><div>Память и ум</div></td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][6] }}</div>
+                  <div>Познание</div>
+                </td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][7] }}</div>
+                  <div>Трудолюбие</div>
+                </td>
+                <td>
+                  <div>{{ user_data_json["psychodata"][8] }}</div>
+                  <div>Память и ум</div>
+                </td>
               </tr>
             </table>
           </div>
           </td> 
           <td>
-            <div class="info">Дата рождения:</div>
-            <div class="info">Гендер:</div>
+            <div class="info">Дата рождения: {{ user_data_json["date_of_birth"] }}</div>
+            <div class="info">Гендер: {{ user_data_json["gender"] }}</div>
           </td>         
         </tr>
       </table>
@@ -57,16 +96,92 @@
 
   </div>
 </template>
+
+
+
+
+
+
 <script>
+import { HTTP, BASE_URL } from "../api/common";
+
 export default {
   data() {
     return {
-      birthday: '',
-      selectedGender: ''
+      selectedDateOfBirth: "1940-10-09",
+      selectedGender: "male",
+      user_data_json: null,
+    }
+  },
+  methods: {
+    saveUserData() {
+      console.log("saveUserData")
+      console.log(this.selectedDateOfBirth)
+      console.log(this.selectedGender)
+
+      var gender = 0;
+      if (this.selectedGender == "male") {
+        gender = -1
+      } else if (this.selectedGender == "female") {
+        gender = 1
+      }
+      var user_id = localStorage.getItem("user_id")
+      var username = localStorage.getItem("username")
+      var username_link = `${BASE_URL}users/${user_id}/`
+      var payload = {
+            user: username_link,
+            date_of_birth: this.selectedDateOfBirth,
+            gender: gender,
+            favorite_color: "pink",
+      }
+
+      HTTP.post("/user-data/", payload)
+      .then(response => {
+        console.log(response.data);
+        this.$router.push("/about");
+      })
+      .catch(error => {
+        var response = JSON.parse(error.request.responseText);
+        if (response['user'] == "user data with this user already exists.") {
+          HTTP.put(`/user-data/${username}/`, payload)
+          .then(response => {
+            console.log(response)
+            this.user_data_json = response["data"]
+            this.user_data_json["psychodata"] = JSON.parse(this.user_data_json["psychodata"])
+            console.log(this.user_data_json)
+          })
+          .catch(error => {
+            var response = JSON.parse(error.request.responseText);
+            window.alert("Save UserData failed:\n\n" + JSON.stringify(response));
+            console.log(response)
+          })
+        } else {
+          window.alert("Save UserData failed:\n\n" + JSON.stringify(response));
+          console.log(response)
+        }
+      })
+    },
+    onExitClick() {
+      console.log("onExitClick")
+      localStorage.removeItem("username")
+      localStorage.removeItem("token")
+      localStorage.removeItem("user_id")
     }
   }
 };
+
+
+
 </script>
+
+
+
+
+
+
+
+
+
 
 <style>
 .titleS{

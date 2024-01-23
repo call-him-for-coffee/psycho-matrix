@@ -45,6 +45,9 @@ export default {
       .then(response => {
         console.log(response.data);
         this.$router.push('/about');
+        localStorage.setItem('username', response.data['username'])
+        localStorage.setItem('token', response.data['token'])
+        localStorage.setItem('user_id', response.data['user_id'])
       })
       .catch(error => {
         var responseText = error.request.responseText;

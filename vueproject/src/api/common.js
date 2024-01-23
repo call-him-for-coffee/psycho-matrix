@@ -1,4 +1,7 @@
 import axios from 'axios'
+
+export const BASE_URL = 'http://localhost:8000/'
+
 export const HTTP = axios.create({
-  baseURL: 'http://localhost:8000/'
+  baseURL: BASE_URL
 })

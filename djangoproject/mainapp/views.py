@@ -68,8 +68,12 @@ class UserLoginView(APIView):
         )
         if user:
             token, created = Token.objects.get_or_create(user=user)
-            login(request, user)
-            return Response(data={'token': token.key, 'username': request.data['username']})
+            login(request, user)        
+            return Response(data={
+                'token': token.key,
+                'username': request.data['username'],
+                'user_id': user.id,
+            })
         else:
             return Response(data={'error': 'invalid data >:('}, status=401)
 
