@@ -94,13 +94,15 @@
       <div align="left" class="mainS">info</div>
     </div>
     <div v-show="other_users_data_json">
-      <div align="left" class="titleS">
+      <div align="center" class="titleS">
         Список участников
       </div>
-      <li align="left" v-for="(user, key) in other_users_data_json" :key="key">
-        <button @click="onCompareUserClick(user.user)" class="btn-11">Сравнить</button>
-        {{ user["username"] }}
-      </li>
+      <ul class="ul-users">
+        <li class="li-users" align="left" v-for="(user, key) in other_users_data_json" :key="key">
+          <button @click="onCompareUserClick(user.user)" class="btn-11">Сравнить</button>
+          {{ user["username"] }}
+        </li>
+      </ul>
     </div>
     
 
@@ -206,16 +208,26 @@ export default {
 
 
 <style>
+.ul-users {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.li-users {
+  margin-bottom: 8px;
+}
+
 .btn-11 {
   background: #7986cb;
   font-size: 14px;
   color: white;
-  border-radius: 7px;
+  border-radius: 20px;
   box-shadow: 0 7px 0px #3f51b5;
   display: inline-block;
   transition: all .2s;
   position: relative;
-  padding: 10px 25px;
+  padding: 7px 18px;
   position: relative;
   top: 0;
   cursor: pointer;
