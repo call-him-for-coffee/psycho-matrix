@@ -37,7 +37,7 @@
           <td>
             <div class="f">
             <div class="titlesquare" align="center"><b>Квадрат пифагора</b></div>
-            <table class="square">
+            <table class="square"  width="500" height="250">
               <tr>
                 <td>
                   <div>{{ user_data_json["psychodata"][0] }}</div>
@@ -84,13 +84,15 @@
           </div>
           </td> 
           <td>
-            <div class="info">Дата рождения: {{ user_data_json["date_of_birth"] }}</div>
-            <div class="info">Гендер: {{ user_data_json["gender"] }}</div>
+
+            <div class="info" align="left">Дата рождения: {{ user_data_json["date_of_birth"] }}</div>
+            <div class="info" align="left">Гендер: {{ user_data_json["gender"] }}</div>
+            
           </td>         
         </tr>
       </table>
       </div>
-      <div align="left" class="titleS">  Расшифровка квадрата Пифагора</div>
+      <div align="left" class="titleS1">  Расшифровка квадрата Пифагора</div>
       <div align="left" class="mainS">info</div>
     </div>
     <div v-show="other_users_data_json">
@@ -238,6 +240,13 @@ export default {
   box-shadow: 0 2px 0px #3f51b5;
   transition: all .2s;
 }
+.titleS1{
+  font-size: 25px;
+  margin-top: 85px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .titleS{
   font-size: 25px;
   margin-top: 10px;
@@ -250,12 +259,16 @@ export default {
 }
 td{
   text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .f{
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 50px;
 }
 .info{
   font-size: 25px;
