@@ -3,7 +3,7 @@
   <div>
     <div class="container">
       <span class="name">Имя</span>
-      <nav><router-link to="/"><button class="button" @click="onExitClick">Выход</button></router-link></nav>
+      <nav><router-link to="/"><button class="btn-11" @click="onExitClick">Выход</button></router-link></nav>
     </div>
 
     <form @submit.prevent="saveUserData" class="form-horizontal">
@@ -91,7 +91,7 @@
       <div align="left" class="titleS">  Расшифровка квадрата Пифагора</div>
       <div align="left" class="mainS">info</div>
       <div align="left" class="titleS">  Список участников</div>
-      <div align="left" class="mainS">info<nav><router-link to="/compare"><button class="button">Сравнить</button></router-link></nav></div>
+      <div align="left" class="mainS">info<nav><router-link to="/compare"><button class="btn-11">Сравнить</button></router-link></nav></div>
     </div>
 
   </div>
@@ -184,6 +184,26 @@ export default {
 
 
 <style>
+.btn-11 {
+  background: #7986cb;
+  font-size: 14px;
+  color: white;
+  border-radius: 7px;
+  box-shadow: 0 7px 0px #3f51b5;
+  display: inline-block;
+  transition: all .2s;
+  position: relative;
+  padding: 10px 25px;
+  position: relative;
+  top: 0;
+  cursor: pointer;
+  margin:0 10px;
+}
+ .btn-11:active {
+  top: 3px;
+  box-shadow: 0 2px 0px #3f51b5;
+  transition: all .2s;
+}
 .titleS{
   font-size: 25px;
   margin-top: 10px;

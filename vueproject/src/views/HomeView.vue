@@ -13,8 +13,8 @@
                     <input type="password" v-model="password" class="form-control" id="inputPassword"  name="password" placeholder="Password" required>
                 </div>
                 <div><nav>
-                    <button type="submit" class="btn">Войти</button>
-                    <router-link to="/registration"><button type="submit" class="btn">Регистрация</button></router-link> 
+                    <button type="submit" class="btn-11">Войти</button>
+                    <router-link to="/registration"><button type="submit" class="btn-11">Регистрация</button></router-link> 
                 </nav></div>
             </form>
         </div>
@@ -61,6 +61,26 @@ export default {
 
 
 <style>
+.btn-11 {
+  background: #7986cb;
+  font-size: 14px;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 7px 0px #3f51b5;
+  display: inline-block;
+  transition: all .2s;
+  position: relative;
+  padding: 7px 18px;
+  position: relative;
+  top: 0;
+  cursor: pointer;
+  margin:0 10px;
+}
+ .btn-11:active {
+  top: 3px;
+  box-shadow: 0 2px 0px #3f51b5;
+  transition: all .2s;
+}
 .title{
   font-size: 120px;
   padding: 20px;
