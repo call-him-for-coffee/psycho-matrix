@@ -139,6 +139,30 @@ export default {
         this.other_users_data_json = users_data_json
       })
     },
+    getUserDataJson() {
+      console.log("getUserDataJson")
+
+      var username = localStorage.getItem("username")
+      HTTP.get(`/user-data/${username}/`)
+      .then(response => {
+        console.log(response)
+        if ("data" in response) {
+          var user_data_json = response["data"]
+          var psychodata_json = JSON.parse(user_data_json["psychodata"])
+          user_data_json["psychodata"] = psychodata_json
+          this.user_data_json = user_data_json
+          console.log("UserData found:")
+          console.log(this.user_data_json)
+        } else {
+          console.log("No UserData found. Unexpected!!!")
+        }
+      })
+      .catch(error => {
+        console.log("No UserData found")
+        console.log(error)
+      })
+
+    },
     saveUserData() {
       console.log("saveUserData")
       console.log(this.selectedDateOfBirth)
@@ -157,7 +181,8 @@ export default {
       HTTP.post("/user-data/", payload)
       .then(response => {
         console.log(response.data);
-        this.$router.push("/about");
+        this.getUserDataJson()
+        // this.$router.push("/about");
       })
       .catch(error => {
         var response = JSON.parse(error.request.responseText);
@@ -192,6 +217,7 @@ export default {
   },
   beforeMount() {
     console.log("beforeMount")
+    this.getUserDataJson()
     this.getOtherUsersDataJson()
     this.auth_username = localStorage.getItem("username")
   }
