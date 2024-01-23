@@ -4,7 +4,7 @@
     <div class="row">
 
         <div class="col-md-offset-3 col-md-6">
-            <form @submit.prevent="signIn" class="form-horizontal">
+            <form @submit.prevent="register" class="form-horizontal">
                 <span class="heading">РЕГИСТРАЦИЯ</span>
                 <div class="form-group">
                     <input type="text" class="form-control" id="inputLogin" name="username" placeholder="Имя пользователя">
