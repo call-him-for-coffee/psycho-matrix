@@ -5,7 +5,6 @@
       <span class="name">{{ auth_username }}</span>
       <nav><router-link to="/"><button class="btn-11" @click="onExitClick">Выход</button></router-link></nav>
     </div>
-
     <form @submit.prevent="saveUserData" class="form-horizontal">
       <div class="InputData">
         <div class="title2">Введите ваши данные:</div>
@@ -15,11 +14,14 @@
         </div>
         <div class="bd">
           <label for="gender">Выберите гендер:</label>
-          <input type="radio" id="male" value="male" v-model="selectedGender">
-          <label for="male">Мужской</label>
-      
-          <input type="radio" id="female" value="female" v-model="selectedGender">
-          <label for="female">Женский</label>
+          <input
+            id="genderSlider"
+            type="range"
+            min="-1"
+            max="1"
+            step="0.01"
+            v-model="selectedGender"
+          />
           <div><nav>
             <button type="submit" class="btn-11">Сохранить</button>
           </nav></div>
@@ -113,14 +115,12 @@
 <script>
 import { HTTP, BASE_URL } from "../api/common";
 
-
-
 export default {
   data() {
     return {
       auth_username: "",
       selectedDateOfBirth: "1940-10-09",
-      selectedGender: "male",
+      selectedGender: 0,
       user_data_json: null,
       other_users_data_json: null,
     }
@@ -140,19 +140,13 @@ export default {
       console.log(this.selectedDateOfBirth)
       console.log(this.selectedGender)
 
-      var gender = 0;
-      if (this.selectedGender == "male") {
-        gender = -1
-      } else if (this.selectedGender == "female") {
-        gender = 1
-      }
       var user_id = localStorage.getItem("user_id")
       var username = localStorage.getItem("username")
       var username_link = `${BASE_URL}users/${user_id}/`
       var payload = {
             user: username_link,
             date_of_birth: this.selectedDateOfBirth,
-            gender: gender,
+            gender: this.selectedGender,
             favorite_color: "pink",
       }
 
@@ -202,7 +196,6 @@ export default {
 
 
 </script>
-
 
 
 
