@@ -7,7 +7,7 @@
   </div>
 
     <div class="InputData">
-      <div class="title2">Ведите ваши данные:</div>
+      <div class="title2">Введите ваши данные:</div>
       <div>
         <label for="birthday" class="bd">Дата рождения:</label>
         <input type="date" class="form-control" id="birthday" v-model="birthday">
@@ -34,7 +34,7 @@
                 <td><div>11</div><div>Характер</div></td><td><div>444</div><div>Здоровье</div></td><td><div>7</div><div>Удача</div></td>
               </tr>
               <tr>
-                <td><div>2</div><div>Энергенита</div></td><td><div>5</div><div>Логка</div></td><td><div>88</div><div>Призвание</div></td>
+                <td><div>2</div><div>Энергетика</div></td><td><div>5</div><div>Логка</div></td><td><div>88</div><div>Призвание</div></td>
               </tr>
               <tr>
                 <td><div>333</div><div>Познание</div></td><td><div>66</div><div>Трудолюбие</div></td><td><div>9</div><div>Память и ум</div></td>
