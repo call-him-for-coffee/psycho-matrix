@@ -21,6 +21,6 @@ class UserData(models.Model):
 
     def calculate_psychodata(self):
         calc = Calculator(self.date_of_birth)
-        numbers = calc.get_all_numbers_int()
+        numbers = calc.get_all_numbers_str()
         json_data = json.dumps(numbers)
         return json_data

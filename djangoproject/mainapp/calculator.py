@@ -63,6 +63,3 @@ class Calculator:
 
     def get_all_numbers_str(self) -> list[str]:
         return self.get_numbers() + self.get_additional_numbers()
-    
-    def get_all_numbers_int(self) -> list[int]:
-        return list(map(int, self.get_all_numbers_str()))
