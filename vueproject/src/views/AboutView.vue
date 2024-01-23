@@ -21,7 +21,7 @@
           <input type="radio" id="female" value="female" v-model="selectedGender">
           <label for="female">Женский</label>
           <div><nav>
-            <button type="submit" class="btn">Сохранить</button>
+            <button type="submit" class="btn-11">Сохранить</button>
           </nav></div>
         </div>
       </div>
@@ -90,9 +90,17 @@
       </div>
       <div align="left" class="titleS">  Расшифровка квадрата Пифагора</div>
       <div align="left" class="mainS">info</div>
-      <div align="left" class="titleS">  Список участников</div>
-      <div align="left" class="mainS">info<nav><router-link to="/compare"><button class="btn-11">Сравнить</button></router-link></nav></div>
     </div>
+    <div v-show="other_users_data_json">
+      <div align="left" class="titleS">
+        Список участников
+      </div>
+      <li align="left" v-for="(user, key) in other_users_data_json" :key="key">
+        <button @click="onCompareUserClick(user.user)" class="btn-11">Сравнить</button>
+        {{ user["username"] }}
+      </li>
+    </div>
+    
 
   </div>
 </template>
@@ -105,15 +113,27 @@
 <script>
 import { HTTP, BASE_URL } from "../api/common";
 
+
+
 export default {
   data() {
     return {
       selectedDateOfBirth: "1940-10-09",
       selectedGender: "male",
       user_data_json: null,
+      other_users_data_json: null,
     }
   },
   methods: {
+    getOtherUsersDataJson() {
+      console.log("getOtherUsersData")
+      HTTP.get("/user-data/")
+      .then(response => {
+        var users_data_json = response["data"]
+        console.log(users_data_json)
+        this.other_users_data_json = users_data_json
+      })
+    },
     saveUserData() {
       console.log("saveUserData")
       console.log(this.selectedDateOfBirth)
@@ -161,12 +181,19 @@ export default {
         }
       })
     },
+    onCompareUserClick(user) {
+      console.log(`onCompareUserClicked(${user})`)
+    },
     onExitClick() {
       console.log("onExitClick")
       localStorage.removeItem("username")
       localStorage.removeItem("token")
       localStorage.removeItem("user_id")
     }
+  },
+  beforeMount() {
+    console.log("beforeMount")
+    this.getOtherUsersDataJson()
   }
 };
 

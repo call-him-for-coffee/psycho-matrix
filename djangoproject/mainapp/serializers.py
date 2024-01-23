@@ -17,9 +17,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UserDataSerializer(serializers.HyperlinkedModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = my_models.UserData
-        fields = ['user', 'date_of_birth', 'gender', 'favorite_color', 'psychodata']
+        fields = ['user', 'username', 'date_of_birth', 'gender', 'favorite_color', 'psychodata']
 
     def get_psychodata(self, obj):
         return obj.calculate_psychodata()
