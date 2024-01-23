@@ -2,7 +2,7 @@
 
   <div>
     <div class="container">
-      <span class="name">Имя</span>
+      <span class="name">{{ auth_username }}</span>
       <nav><router-link to="/"><button class="btn-11" @click="onExitClick">Выход</button></router-link></nav>
     </div>
 
@@ -118,6 +118,7 @@ import { HTTP, BASE_URL } from "../api/common";
 export default {
   data() {
     return {
+      auth_username: "",
       selectedDateOfBirth: "1940-10-09",
       selectedGender: "male",
       user_data_json: null,
@@ -194,6 +195,7 @@ export default {
   beforeMount() {
     console.log("beforeMount")
     this.getOtherUsersDataJson()
+    this.auth_username = localStorage.getItem("username")
   }
 };
 
