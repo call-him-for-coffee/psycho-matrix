@@ -34,7 +34,7 @@
                 <td><div>11</div><div>Характер</div></td><td><div>444</div><div>Здоровье</div></td><td><div>7</div><div>Удача</div></td>
               </tr>
               <tr>
-                <td><div>2</div><div>Энергетика</div></td><td><div>5</div><div>Логка</div></td><td><div>88</div><div>Призвание</div></td>
+                <td><div>2</div><div>Энергетика</div></td><td><div>5</div><div>Логика</div></td><td><div>88</div><div>Призвание</div></td>
               </tr>
               <tr>
                 <td><div>333</div><div>Познание</div></td><td><div>66</div><div>Трудолюбие</div></td><td><div>9</div><div>Память и ум</div></td>
