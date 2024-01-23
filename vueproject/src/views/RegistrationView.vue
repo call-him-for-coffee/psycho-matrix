@@ -7,11 +7,11 @@
             <form @submit.prevent="register" class="form-horizontal">
                 <span class="heading">РЕГИСТРАЦИЯ</span>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="inputLogin" name="username" placeholder="Имя пользователя">
+                    <input type="text" v-model="username" class="form-control" id="inputLogin" name="username" placeholder="Имя пользователя" required>
                 </div>
                 
                 <div class="form-group">
-                    <input type="password" class="form-control" id="inputPassword" name="password1" placeholder="Пароль">
+                    <input type="password" v-model="password" class="form-control" id="inputPassword" name="password1" placeholder="Пароль" required>
                 </div>
 
                 <div><nav>
@@ -49,12 +49,12 @@ export default {
       })
       .then(response => {
         console.log(response.data);
-        // to /login
+        this.$router.push('/');
       })
       .catch(error => {
         var responseText = error.request.responseText;
-        console.error('Sign-in failed:', responseText);
-        window.alert('Sign-in failed:\n\n' + responseText);
+        console.error('Registration failed:', responseText);
+        window.alert('Registration failed:\n\n' + responseText);
       });
     },
   },
