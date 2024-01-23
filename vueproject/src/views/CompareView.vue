@@ -9,16 +9,49 @@
         <tr>
           <td>
             <div class="f">
-            <div class="titlesquare" align="center"><b>Мой квадрат пифагора</b></div>
+            <div class="titlesquare" align="center"><b>Мой квадрат Пифагора</b></div>
             <table class="square">
               <tr>
-                <td><div>11</div><div>Характер</div></td><td><div>444</div><div>Здоровье</div></td><td><div>7</div><div>Удача</div></td>
+                <td>
+                  <div>{{ user1_data["psychodata"][0] }}</div>
+                  <div>Характер</div>
+                </td>
+                <td>
+                  <div>{{ user1_data["psychodata"][1] }}</div>
+                  <div>Здоровье</div>
+                </td>
+                <td>
+                  <div>{{ user1_data["psychodata"][2] }}</div>
+                  <div>Удача</div>
+                </td>
               </tr>
               <tr>
-                <td><div>2</div><div>Энергенита</div></td><td><div>5</div><div>Логка</div></td><td><div>88</div><div>Призвание</div></td>
+                <td>
+                  <div>{{ user1_data["psychodata"][3] }}</div>
+                  <div>Энергетика</div>
+                </td>
+                <td>
+                  <div>{{ user1_data["psychodata"][4] }}</div>
+                  <div>Логика</div>
+                </td>
+                <td>
+                  <div>{{ user1_data["psychodata"][5] }}</div>
+                  <div>Призвание</div>
+                </td>
               </tr>
               <tr>
-                <td><div>333</div><div>Познание</div></td><td><div>66</div><div>Трудолюбие</div></td><td><div>9</div><div>Память и ум</div></td>
+                <td>
+                  <div>{{ user1_data["psychodata"][6] }}</div>
+                  <div>Познание</div>
+                </td>
+                <td>
+                  <div>{{ user1_data["psychodata"][7] }}</div>
+                  <div>Трудолюбие</div>
+                </td>
+                <td>
+                  <div>{{ user1_data["psychodata"][8] }}</div>
+                  <div>Память и ум</div>
+                </td>
               </tr>
             </table>
           </div>
@@ -28,13 +61,46 @@
             <div class="titlesquare" align="center"><b>Чей-то квадрат пифагора</b></div>
             <table class="square">
               <tr>
-                <td><div>11</div><div>Характер</div></td><td><div>444</div><div>Здоровье</div></td><td><div>7</div><div>Удача</div></td>
+                <td>
+                  <div>{{ user2_data["psychodata"][0] }}</div>
+                  <div>Характер</div>
+                </td>
+                <td>
+                  <div>{{ user2_data["psychodata"][1] }}</div>
+                  <div>Здоровье</div>
+                </td>
+                <td>
+                  <div>{{ user2_data["psychodata"][2] }}</div>
+                  <div>Удача</div>
+                </td>
               </tr>
               <tr>
-                <td><div>2</div><div>Энергенита</div></td><td><div>5</div><div>Логка</div></td><td><div>88</div><div>Призвание</div></td>
+                <td>
+                  <div>{{ user2_data["psychodata"][3] }}</div>
+                  <div>Энергетика</div>
+                </td>
+                <td>
+                  <div>{{ user2_data["psychodata"][4] }}</div>
+                  <div>Логика</div>
+                </td>
+                <td>
+                  <div>{{ user2_data["psychodata"][5] }}</div>
+                  <div>Призвание</div>
+                </td>
               </tr>
               <tr>
-                <td><div>333</div><div>Познание</div></td><td><div>66</div><div>Трудолюбие</div></td><td><div>9</div><div>Память и ум</div></td>
+                <td>
+                  <div>{{ user2_data["psychodata"][6] }}</div>
+                  <div>Познание</div>
+                </td>
+                <td>
+                  <div>{{ user2_data["psychodata"][7] }}</div>
+                  <div>Трудолюбие</div>
+                </td>
+                <td>
+                  <div>{{ user2_data["psychodata"][8] }}</div>
+                  <div>Память и ум</div>
+                </td>
               </tr>
             </table>
           </div>
@@ -46,20 +112,65 @@
  <div class="compare" align="center">
  <table>
     <tr>
-        <td>Характеры </td><td>1-1</td>
+        <td>Характеры </td><td>{{ user1_data["psychodata"][0] }}-{{ user2_data["psychodata"][0] }}</td>
     </tr>
     <tr>
-        <td>Семейность </td><td>1-1</td>
+        <td>Семейность </td><td>{{ user1_data["psychodata"][13] }}-{{ user2_data["psychodata"][13] }}</td>
     </tr>
     <tr>
-        <td>Темперамент </td><td>1-1</td>
+        <td>Темперамент </td><td>{{ user1_data["psychodata"][16] }}-{{ user2_data["psychodata"][16] }}</td>
     </tr>
  </table>
 </div>
 </template>
-<script>
 
+
+<script>
+import { HTTP } from '../api/common';
+
+export default {
+  data() {
+    return {
+      user1_data: null,
+      user2_data: null
+    };
+  },
+  methods: {
+    getUserData(username) {
+      HTTP.get(`user-data/${username}/`)
+      .then(response => {
+        console.log(response.data);
+        return response.data
+      })
+      .catch(error => {
+        var response = JSON.parse(error.request.responseText);
+        window.alert("Get UserData failed:\n\n" + JSON.stringify(response));
+        console.log(response)
+      })
+    },
+
+    getUser1Data(){
+      this.user1_data = this.getUserData(localStorage.getItem("username"))
+    },
+    getUser2Data(){
+      this.user2_data = this.getUserData(console.log(this.$route.params.username))
+    },
+
+    onExitClick() {
+      console.log("onExitClick")
+      localStorage.removeItem("username")
+      localStorage.removeItem("token")
+      localStorage.removeItem("user_id")
+    }
+  },
+  beforeMount(){
+    this.getUser1Data()
+    this.getUser2Data()
+  }
+};
 </script>
+
+
 <style>
 .f{
   margin-top: 20px;

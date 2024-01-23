@@ -178,6 +178,19 @@ export default {
     },
     onCompareUserClick(user) {
       console.log(`onCompareUserClicked(${user})`)
+
+      HTTP.get(`${user}`)
+      .then(response => {
+        console.log(response.data);
+        var username = response.data["username"];
+        console.log(username);
+        this.$router.push(`/compare/${username}/`);
+      })
+      .catch(error => {
+        var response = JSON.parse(error.request.responseText);
+        window.alert("Get UserData failed:\n\n" + JSON.stringify(response));
+        console.log(response);
+      })
     },
     onExitClick() {
       console.log("onExitClick")
