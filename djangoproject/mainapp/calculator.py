@@ -23,7 +23,6 @@ class Calculator:
                 third_numbers if third_numbers <= 11 else
                 sum(map(int, str(third_numbers)))
             )
-
         else:
             const = 19
             third_numbers = first_numbers + const

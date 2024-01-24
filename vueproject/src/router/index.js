@@ -18,7 +18,7 @@ const routes = [
     component: () => import('../views/RegistrationView.vue')
   },
   {
-    path: '/compare',
+    path: '/compare/:username',
     name: 'compare',
     component: () => import('../views/CompareView.vue')
   }
