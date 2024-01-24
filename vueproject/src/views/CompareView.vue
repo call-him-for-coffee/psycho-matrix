@@ -1,7 +1,7 @@
 <template>
     <div v-if="user1_data && user2_data">
       <div class="container">
-        <span class="name">Имя</span>
+        <span class="name">{{ user1_data["username"] }}</span>
         <nav><router-link to="/"><button class="btn-11">Выход</button></router-link></nav>
       </div>
       <div align="center">
@@ -58,7 +58,7 @@
             </td> 
             <td>
               <div class="f">
-              <div class="titlesquare" align="center"><b>Чей-то квадрат пифагора</b></div>
+              <div class="titlesquare" align="center"><b>Квадрат Пифагора {{ user2_data["username"] }}</b></div>
               <table class="square">
                 <tr>
                   <td>
@@ -108,7 +108,7 @@
           </tr>
         </table>
       </div>
-  <div class="titleS"><b>Совместимость по квадрату Пифагора</b></div>
+  <div class="titleS"><b>Совместимость</b></div>
   <div class="compare" align="center">
   <table>
       <tr>

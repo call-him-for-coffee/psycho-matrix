@@ -36,7 +36,7 @@
         <tr>
           <td>
             <div class="f">
-            <div class="titlesquare" align="center"><b>Квадрат пифагора</b></div>
+            <div class="titlesquare" align="center"><b>Квадрат Пифагора</b></div>
             <table class="square">
               <tr>
                 <td>
