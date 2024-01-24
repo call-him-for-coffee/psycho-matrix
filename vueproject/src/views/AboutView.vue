@@ -92,8 +92,6 @@
         </tr>
       </table>
       </div>
-      <div align="left" class="titleS1">  Расшифровка квадрата Пифагора</div>
-      <div align="left" class="mainS">info</div>
     </div>
     <div v-show="other_users_data_json">
       <div align="center" class="titleS">
