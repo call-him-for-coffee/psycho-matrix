@@ -2,7 +2,7 @@
     <div v-if="user1_data && user2_data">
       <div class="container">
         <span class="name">{{ user1_data["username"] }}</span>
-        <nav><router-link to="/"><button class="btn-11">Выход</button></router-link></nav>
+        <nav><router-link to="/about"><button class="btn-11">Назад</button></router-link></nav>
       </div>
       <div align="center">
         <table>

@@ -85,14 +85,15 @@
           </td> 
           <td>
 
-            <div class="info" align="left">Дата рождения: {{ user_data_json["date_of_birth"] }}</div>
-            <div class="info" align="left">Гендер: {{ user_data_json["gender"] }}</div>
+            <div class="info" align="left">Дата рождения:{{ user_data_json["date_of_birth"] }}</div>
+            <div class="info" align="left">Гендер:{{ user_data_json["gender"] }}</div>
             
           </td>         
         </tr>
       </table>
       </div>
     </div>
+    <br>
     <div v-show="other_users_data_json">
       <div align="center" class="titleS">
         Список участников
@@ -104,7 +105,8 @@
         </li>
       </ul>
     </div>
-    
+    <br>
+    <br>
 
   </div>
 </template>
