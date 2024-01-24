@@ -37,7 +37,7 @@
           <td>
             <div class="f">
             <div class="titlesquare" align="center"><b>Квадрат Пифагора</b></div>
-            <table class="square">
+            <table class="square"  width="500" height="250">
               <tr>
                 <td>
                   <div>{{ user_data_json["psychodata"][0] }}</div>
@@ -84,23 +84,27 @@
           </div>
           </td> 
           <td>
-            <div class="info">Дата рождения: {{ user_data_json["date_of_birth"] }}</div>
-            <div class="info">Гендер: {{ user_data_json["gender"] }}</div>
+
+            <div class="info" align="left">Дата рождения: {{ user_data_json["date_of_birth"] }}</div>
+            <div class="info" align="left">Гендер: {{ user_data_json["gender"] }}</div>
+            
           </td>         
         </tr>
       </table>
       </div>
-      <div align="left" class="titleS">  Расшифровка квадрата Пифагора</div>
+      <div align="left" class="titleS1">  Расшифровка квадрата Пифагора</div>
       <div align="left" class="mainS">info</div>
     </div>
     <div v-show="other_users_data_json">
-      <div align="left" class="titleS">
+      <div align="center" class="titleS">
         Список участников
       </div>
-      <li align="left" v-for="(user, key) in other_users_data_json" :key="key">
-        <button @click="onCompareUserClick(user.user)" class="btn-11">Сравнить</button>
-        {{ user["username"] }}
-      </li>
+      <ul class="ul-users">
+        <li class="li-users" align="left" v-for="(user, key) in other_users_data_json" :key="key">
+          <button @click="onCompareUserClick(user.user)" class="btn-11">Сравнить</button>
+          {{ user["username"] }}
+        </li>
+      </ul>
     </div>
     
 
@@ -135,6 +139,30 @@ export default {
         this.other_users_data_json = users_data_json
       })
     },
+    getUserDataJson() {
+      console.log("getUserDataJson")
+
+      var username = localStorage.getItem("username")
+      HTTP.get(`/user-data/${username}/`)
+      .then(response => {
+        console.log(response)
+        if ("data" in response) {
+          var user_data_json = response["data"]
+          var psychodata_json = JSON.parse(user_data_json["psychodata"])
+          user_data_json["psychodata"] = psychodata_json
+          this.user_data_json = user_data_json
+          console.log("UserData found:")
+          console.log(this.user_data_json)
+        } else {
+          console.log("No UserData found. Unexpected!!!")
+        }
+      })
+      .catch(error => {
+        console.log("No UserData found")
+        console.log(error)
+      })
+
+    },
     saveUserData() {
       console.log("saveUserData")
       console.log(this.selectedDateOfBirth)
@@ -153,7 +181,8 @@ export default {
       HTTP.post("/user-data/", payload)
       .then(response => {
         console.log(response.data);
-        this.$router.push("/about");
+        this.getUserDataJson()
+        // this.$router.push("/about");
       })
       .catch(error => {
         var response = JSON.parse(error.request.responseText);
@@ -201,6 +230,7 @@ export default {
   },
   beforeMount() {
     console.log("beforeMount")
+    this.getUserDataJson()
     this.getOtherUsersDataJson()
     this.auth_username = localStorage.getItem("username")
   }
@@ -219,16 +249,26 @@ export default {
 
 
 <style>
+.ul-users {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.li-users {
+  margin-bottom: 8px;
+}
+
 .btn-11 {
   background: #7986cb;
   font-size: 14px;
   color: white;
-  border-radius: 7px;
+  border-radius: 20px;
   box-shadow: 0 7px 0px #3f51b5;
   display: inline-block;
   transition: all .2s;
   position: relative;
-  padding: 10px 25px;
+  padding: 7px 18px;
   position: relative;
   top: 0;
   cursor: pointer;
@@ -238,6 +278,13 @@ export default {
   top: 3px;
   box-shadow: 0 2px 0px #3f51b5;
   transition: all .2s;
+}
+.titleS1{
+  font-size: 25px;
+  margin-top: 85px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .titleS{
   font-size: 25px;
@@ -251,12 +298,16 @@ export default {
 }
 td{
   text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .f{
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 50px;
 }
 .info{
   font-size: 25px;
