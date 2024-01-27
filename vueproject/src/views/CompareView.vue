@@ -9,6 +9,12 @@
           <tr>
             <td>
               <div class="f">
+              <div class="small-square">
+                Дата рождения: {{ user1_data["date_of_birth"] }}
+              </div>
+              <div class="small-square">
+                Гендер: {{ user1_data["gender"] }}
+              </div>
               <div class="titlesquare" align="center"><b>Мой квадрат Пифагора</b></div>
               <table class="square">
                 <tr>
@@ -58,6 +64,12 @@
             </td> 
             <td>
               <div class="f">
+                <div class="small-square">
+                Дата рождения: {{ user2_data["date_of_birth"] }}
+              </div>
+              <div class="small-square">
+                Гендер: {{ user2_data["gender"] }}
+              </div>
               <div class="titlesquare" align="center"><b>Квадрат Пифагора {{ user2_data["username"] }}</b></div>
               <table class="square">
                 <tr>
@@ -188,6 +200,10 @@ export default {
 
 
 <style>
+.small-square {
+  font-size: 20px;
+  margin: 5px;
+}
 .f{
   margin-top: 20px;
   margin-bottom: 20px;
